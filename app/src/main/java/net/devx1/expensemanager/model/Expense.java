@@ -1,12 +1,23 @@
 package net.devx1.expensemanager.model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 public class Expense {
     private long id;
     private String amount;
     private String type;
     private String date;
 
-    public Expense(long id, String amount, String type, String date) {
+    public Expense(){}
+
+	public Expense(String amount, String type, String date) {
+    	this.id = -1;
+		this.amount = amount;
+		this.type = type;
+		this.date = date;
+	}
+
+	public Expense(long id, String amount, String type, String date) {
         this.id = id;
         this.amount = amount;
         this.type = type;

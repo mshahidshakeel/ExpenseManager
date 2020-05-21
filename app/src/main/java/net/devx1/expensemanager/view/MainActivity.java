@@ -1,24 +1,27 @@
 package net.devx1.expensemanager.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.button.MaterialButton;
-import net.devx1.expensemanager.ExpenseContract.ExpensesTable;
-import net.devx1.expensemanager.ExpensesDbHelper;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import net.devx1.expensemanager.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
-
+	private Context context = this;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,62 +82,82 @@ public class MainActivity extends AppCompatActivity {
         updatePercentages();
     }
 
-    private int getAmount(String type){
-        ExpensesDbHelper helper = new ExpensesDbHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        String[] projection = {
-                ExpensesTable.COLUMN_AMOUNT
-        };
-
-        String selection = ExpensesTable.COLUMN_TYPE + " = ?";
-        String[] selectionArgs = { type };
-
-        Cursor cursor = db.query(
-                ExpensesTable.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        int sum = 0;
-
-        List itemIds = new ArrayList<>();
-        while(cursor.moveToNext()) {
-            sum += (int) Long.parseLong(cursor.getString(0));
-        }
-
-        cursor.close();
-
-        return sum;
-    }
-
     private void updatePercentages(){
-        int fuel = getAmount("Fuel");
-        int food = getAmount("Food");
-        int edu = getAmount("Education");
-        int misc = getAmount("Misc.");
-        int total = fuel + food + edu + misc;
+	    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        TextView txtFuel = findViewById(R.id.txtFuel);
-        TextView txtFood = findViewById(R.id.txtFood);
-        TextView txtEdu = findViewById(R.id.txtEdu);
-        TextView txtMisc = findViewById(R.id.txtMisc);
+	    reference.addListenerForSingleValueEvent(
+		    new ValueEventListener() {
+			    @Override
+			    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				    int[] food = {0, 0};
+				    int[] fuel = {0, 0};
+				    int[] edu = {0, 0};
+				    int[] misc = {0, 0};
 
-        if (total == 0){
-            txtFuel.setText("0 %");
-            txtFood.setText("0 %");
-            txtEdu.setText("0 %");
-            txtMisc.setText("0 %");
-        }
-        else {
-            txtFuel.setText((fuel*100/total) + " %");
-            txtFood.setText((food*100/total) + " %");
-            txtEdu.setText((edu*100/total) + " %");
-            txtMisc.setText((total-fuel-food-edu)*100/total + " %");
-        }
+				    for (DataSnapshot ds: dataSnapshot.getChildren()){
+				    	if (!"nextId".equals(ds.getKey())){
+						    if ("Food".equals(ds.child("type").getValue())) {
+						    	food[0] += Integer.parseInt(String.valueOf(ds.child("amount").getValue()));
+						    	food[1]++;
+						    }
+						    else if("Fuel".equals(ds.child("type").getValue())){
+							    fuel[0] += Integer.parseInt(String.valueOf(ds.child("amount").getValue()));
+							    fuel[1]++;
+						    }
+						    else if ("Education".equals(ds.child("type").getValue())) {
+							    edu[0] += Integer.parseInt(String.valueOf(ds.child("amount").getValue()));
+							    edu[1]++;
+						    }
+						    else {
+							    misc[0] += Integer.parseInt(String.valueOf(ds.child("amount").getValue()));
+							    misc[1]++;
+						    }
+					    }
+				    }
+
+				    int total = fuel[0] + food[0] + edu[0] + misc[0];
+
+			        TextView txtFuel = findViewById(R.id.txtFuel);
+			        TextView txtFood = findViewById(R.id.txtFood);
+			        TextView txtEdu = findViewById(R.id.txtEdu);
+			        TextView txtMisc = findViewById(R.id.txtMisc);
+
+			        if (total == 0){
+			            txtFuel.setText("0 %");
+			            txtFood.setText("0 %");
+			            txtEdu.setText("0 %");
+			            txtMisc.setText("0 %");
+			        }
+			        else {
+				        txtFuel.setText((fuel[0] * 100 / total) + " %");
+				        txtFood.setText((food[0] * 100 / total) + " %");
+				        txtEdu.setText((edu[0] * 100 / total) + " %");
+				        txtMisc.setText((total - fuel[0] - food[0] - edu[0]) * 100 / total + " %");
+			        }
+			    }
+
+			    @Override
+			    public void onCancelled(@NonNull DatabaseError databaseError) {
+					new AlertDialog.Builder(getBaseContext())
+						.setTitle("Oops.. Database Failure")
+						.setMessage("Please restart app!")
+						.setPositiveButton("Okay",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									finish();
+								}
+							})
+						.setOnCancelListener(
+							new DialogInterface.OnCancelListener() {
+								@Override
+								public void onCancel(DialogInterface dialog) {
+									finish();
+								}
+							}
+						);
+			    }
+		    }
+	    );
     }
 }
