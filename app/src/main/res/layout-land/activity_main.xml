@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Expense Manager"
+        android:text="@string/expense_manager"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:gravity="center_horizontal"
-                android:text="Fuel"
+                android:text="@string/fuel"
                 android:textSize="18sp" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="30 %"
+                android:text="@string/n_a"
                 android:textSize="36sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:gravity="center_horizontal"
-                android:text="Food"
+                android:text="@string/food"
                 android:textSize="18sp" />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="40 %"
+                android:text="@string/n_a"
                 android:textSize="36sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:gravity="center_horizontal"
-                android:text="Education"
+                android:text="@string/education"
                 android:textSize="18sp" />
 
             <TextView
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="20 %"
+                android:text="@string/n_a"
                 android:textSize="36sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:gravity="center_horizontal"
-                android:text="Misc"
+                android:text="@string/misc"
                 android:textSize="18sp" />
 
             <TextView
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="10 %"
+                android:text="@string/n_a"
                 android:textSize="36sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -201,7 +201,6 @@
         app:cardElevation="4sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/expenseGrid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
@@ -218,7 +217,7 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Add"
+                android:text="@string/add"
                 android:textAppearance="?textAppearanceButton"
                 android:textColor="@android:color/holo_green_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -235,7 +234,7 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Edit"
+                android:text="@string/education"
                 android:textColor="@android:color/holo_blue_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnDelete"
@@ -251,7 +250,7 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnShowAll"
@@ -267,7 +266,7 @@
                 android:layout_height="0sp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Show All"
+                android:text="@string/show_all"
                 android:textColor="@android:color/holo_orange_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

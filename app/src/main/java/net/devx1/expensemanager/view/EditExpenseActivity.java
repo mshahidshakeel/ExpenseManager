@@ -87,6 +87,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 							Calendar.getInstance().get(Calendar.MONTH),
 							Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 						);
+					dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 					dialog.show();
 				}
 			}
@@ -141,13 +142,13 @@ public class EditExpenseActivity extends AppCompatActivity {
 	}
 
 	private Expense validateData(){
-		if ("".equals(amount.getText().toString())){
+		if ("".equals(String.valueOf(amount.getText()))){
 			return null;
 		}
 
 		return new Expense(
 			Long.parseLong(String.valueOf(selectId.getSelectedItem())),
-			amount.getText().toString(),
+			String.valueOf(amount.getText()),
 			type.getSelectedItem().toString(),
 			dateText.getText().toString()
 		);
@@ -166,7 +167,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 						if (!"nextId".equals(ds.getKey())){
 							expenses.add(
 								new Expense(
-									Long.parseLong(ds.getKey()),
+									Long.parseLong(String.valueOf(ds.getKey())),
 									String.valueOf(ds.child("amount").getValue()),
 									String.valueOf(ds.child("type").getValue()),
 									String.valueOf(ds.child("date").getValue())

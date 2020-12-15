@@ -1,5 +1,6 @@
 package net.devx1.expensemanager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class ExpDataAdapter extends ArrayAdapter<Expense> {
         super(context, resource, objects);
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -36,7 +38,8 @@ public class ExpDataAdapter extends ArrayAdapter<Expense> {
         TextView txtType = view.findViewById(R.id.txtType);
         TextView txtDate = view.findViewById(R.id.txtDate);
 
-        txtId.setText(Long.toString(exp.getId()));
+	    assert exp != null;
+	    txtId.setText(String.valueOf(exp.getId()));
         txtAmount.setText(exp.getAmount());
         txtType.setText(exp.getType());
         txtDate.setText(exp.getDate());

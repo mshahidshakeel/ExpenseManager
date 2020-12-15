@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.devx1.expensemanager.ExpDataAdapter;
 import net.devx1.expensemanager.R;
-import net.devx1.expensemanager.db.sqlite.SqliteOps;
 import net.devx1.expensemanager.model.Expense;
 
 import java.util.ArrayList;
@@ -43,10 +42,10 @@ public class ShowAllExpensesActivity extends AppCompatActivity {
 					List<Expense> expenses = new ArrayList<>();
 
 					for (DataSnapshot ds : dataSnapshot.getChildren()) {
-						if (!ds.getKey().equals("nextId")) {
+						if (!"nextId".equals(String.valueOf(ds.getKey()))) {
 							expenses.add(
 								new Expense(
-									Long.parseLong(ds.getKey()),
+									Long.parseLong(String.valueOf(ds.getKey())),
 									String.valueOf(ds.child("amount").getValue()),
 									String.valueOf(ds.child("type").getValue()),
 									String.valueOf(ds.child("date").getValue())

@@ -1,17 +1,15 @@
 package net.devx1.expensemanager.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,8 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import net.devx1.expensemanager.R;
-import net.devx1.expensemanager.db.firebase.FirebaseOps;
-import net.devx1.expensemanager.db.sqlite.SqliteOps;
 import net.devx1.expensemanager.model.Expense;
 
 import java.util.ArrayList;
@@ -33,7 +29,6 @@ import java.util.List;
 
 public class AddExpenseActivity extends AppCompatActivity {
 	private MaterialButton btnDate;
-	private Context context = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +104,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 	private Expense validateData() {
 		TextInputEditText amount = findViewById(R.id.amount);
-		if (amount.getText().equals("")) {
+		if ("".equals(String.valueOf(amount.getText()))) {
 			return null;
 		}
 

@@ -1,6 +1,6 @@
 package net.devx1.expensemanager.view;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import net.devx1.expensemanager.R;
 
 public class MainActivity extends AppCompatActivity {
-	private Context context = this;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 	    reference.addListenerForSingleValueEvent(
 		    new ValueEventListener() {
+			    @SuppressLint("SetTextI18n")
 			    @Override
 			    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 				    int[] food = {0, 0};
@@ -129,10 +130,11 @@ public class MainActivity extends AppCompatActivity {
 			            txtMisc.setText("0 %");
 			        }
 			        else {
-				        txtFuel.setText((fuel[0] * 100 / total) + " %");
-				        txtFood.setText((food[0] * 100 / total) + " %");
-				        txtEdu.setText((edu[0] * 100 / total) + " %");
-				        txtMisc.setText((total - fuel[0] - food[0] - edu[0]) * 100 / total + " %");
+				        txtFuel.setText(Math.round(fuel[0] * 100.0 / total) + " %");
+				        txtFood.setText(Math.round(food[0] * 100.0 / total) + " %");
+				        txtEdu.setText(Math.round(edu[0] * 100.0 / total) + " %");
+				        txtMisc.setText(Math.round((total - fuel[0] - food[0] - edu[0]) * 100 / total) +
+					        " %");
 			        }
 			    }
 

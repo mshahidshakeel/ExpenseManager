@@ -1,18 +1,15 @@
 package net.devx1.expensemanager.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -22,10 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import net.devx1.expensemanager.db.sqlite.ExpenseContract;
-import net.devx1.expensemanager.db.sqlite.ExpensesDbHelper;
 import net.devx1.expensemanager.R;
-import net.devx1.expensemanager.db.sqlite.SqliteOps;
 
 import java.util.ArrayList;
 import java.util.List;

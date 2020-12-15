@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Expense Manager</string>
+    <string name="expense_manager">Expense Manager</string>
+    <string name="fuel">Fuel</string>
+    <string name="n_a">N/A</string>
+    <string name="food">Food</string>
+    <string name="education">Education</string>
+    <string name="misc">Misc.</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="show_all">Show All</string>
+    <string name="amount">Amount</string>
+    <string name="date_sample">01/04/2020</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="delete_expense">Delete Expense</string>
+    <string name="edit_expense">Edit Expense</string>
+    <string name="change_date">Change Date</string>
+    <string name="change">Change</string>
+    <string name="all_expenses">All Expenses</string>
+    <string name="id">ID</string>
+    <string name="type">Type</string>
+    <string name="date">Date</string>
+    <string name="_1">1</string>
+    <string name="_4000">4000</string>
 </resources>
